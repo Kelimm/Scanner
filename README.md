@@ -68,8 +68,6 @@ Comparison between the input image and the custom Canny output:
 | :---: | :---: |
 | ![Original Image](./exemple.jpg) | ![Canny Output](./example_canny.png) |
 
-*(Replace the paths above with your actual image filenames)*
-
 ---
 ## 🚧 Work In Progress: Document Scanner
 

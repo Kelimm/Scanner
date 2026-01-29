@@ -11,16 +11,35 @@ The algorithm follows a rigorous four-stage process powered by linear algebra an
 ### 1. Noise Reduction (Gaussian Blur)
 To prevent the algorithm from detecting noise as edges, we apply a $5 \times 5$ Gaussian kernel $H$. Each pixel value is recomputed as a weighted average of its neighbors:
 
-$$H = \frac{1}{159} \begin{bmatrix} 2 & 4 & 5 & 4 & 2 \\ 4 & 9 & 12 & 9 & 4 \\ 5 & 12 & 15 & 12 & 5 \\ 4 & 9 & 12 & 9 & 4 \\ 2 & 4 & 5 & 4 & 2 \end{bmatrix}$$
+$$
+H = \frac{1}{159} 
+\begin{bmatrix} 
+2 & 4 & 5 & 4 & 2 \\ 
+4 & 9 & 12 & 9 & 4 \\ 
+5 & 12 & 15 & 12 & 5 \\ 
+4 & 9 & 12 & 9 & 4 \\ 
+2 & 4 & 5 & 4 & 2 
+\end{bmatrix}
+$$
 
 ### 2. Gradient Calculation (Sobel Operators)
 We calculate the intensity gradient of the image using Sobel kernels. This highlights regions with high luminous spatial frequency.
 
-* **Horizontal Gradient ($G_x$):** $G_x = I * K_x$, where $K_x = \begin{bmatrix} -1 & 0 & 1 \\ -2 & 0 & 2 \\ -1 & 0 & 1 \end{bmatrix}$
-* **Vertical Gradient ($G_y$):** $G_y = I * K_y$, where $K_y = \begin{bmatrix} -1 & -2 & -1 \\ 0 & 0 & 0 \\ 1 & 2 & 1 \end{bmatrix}$
+* **Horizontal Gradient ($G_x$):** $G_x = I * K_x$
+* **Vertical Gradient ($G_y$):** $G_y = I * K_y$
+
+Where the kernels are defined as:
+
+$$
+K_x = \begin{bmatrix} -1 & 0 & 1 \\ -2 & 0 & 2 \\ -1 & 0 & 1 \end{bmatrix} 
+\quad , \quad 
+K_y = \begin{bmatrix} -1 & -2 & -1 \\ 0 & 0 & 0 \\ 1 & 2 & 1 \end{bmatrix}
+$$
 
 The **Magnitude ($G$)** and **Direction ($\theta$)** are then computed:
+
 $$G = \sqrt{G_x^2 + G_y^2}$$
+
 $$\theta = \arctan\left(\frac{G_y}{G_x}\right)$$
 
 ### 3. Non-Maximum Suppression (NMS)
@@ -32,7 +51,6 @@ We use two thresholds, $T_{high}$ and $T_{low}$, to classify pixels:
 * **Weak edges**: $T_{low} \leq G < T_{high}$ (Keep only if connected to a strong edge)
 * **Suppressed**: $G < T_{low}$ (Discard)
 
-
 ---
 
 ## 🚧 Work In Progress: Document Scanner
@@ -43,3 +61,6 @@ The project is currently evolving into an **Automatic Document Scanner**.
 * [ ] **Quadrilateral Detection**: Implementing contour approximation to find the document's four corners.
 * [ ] **Perspective Warp**: Applying a homography matrix to transform the document into a top-down view.
 * [ ] **Adaptive Binarization**: Enhancing text readability after scanning.
+
+---
+*Developed with ☕ and Linear Algebra.*

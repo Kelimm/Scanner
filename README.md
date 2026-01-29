@@ -66,7 +66,7 @@ Comparison between the input image and the custom Canny output:
 
 | Original Image | Custom Canny Output |
 | :---: | :---: |
-| ![Original Image](./example.jpg) | ![Canny Output](./example_canny.jpg) |
+| ![Original Image](./exemple.jpg) | ![Canny Output](./example_canny.png) |
 
 *(Replace the paths above with your actual image filenames)*
 

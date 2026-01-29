@@ -60,7 +60,17 @@ We use two thresholds, $T_{high}$ and $T_{low}$, to classify pixels:
 * **Suppressed**: $G < T_{low}$ (Discard)
 
 ---
+## 🖼️ Example Results
 
+Comparison between the input image and the custom Canny output:
+
+| Original Image | Custom Canny Output |
+| :---: | :---: |
+| ![Original Image](./example.jpg) | ![Canny Output](./example_canny.jpg) |
+
+*(Replace the paths above with your actual image filenames)*
+
+---
 ## 🚧 Work In Progress: Document Scanner
 
 The project is currently evolving into an **Automatic Document Scanner**. 

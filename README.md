@@ -31,9 +31,9 @@ We calculate the intensity gradient of the image using Sobel kernels. This highl
 Where the kernels are defined as:
 
 $$
-K_x = \left[\begin{bmatrix} -1 & 0 & 1 \\ -2 & 0 & 2 \\ -1 & 0 & 1 \end{bmatrix}]
+K_x = \left[\begin{bmatrix} -1 & 0 & 1 \\ -2 & 0 & 2 \\ -1 & 0 & 1 \end{bmatrix}\right]
 \quad , \quad 
-K_y = \left[\begin{bmatrix} -1 & -2 & -1 \\ 0 & 0 & 0 \\ 1 & 2 & 1 \end{bmatrix}]
+K_y = \left[\begin{bmatrix} -1 & -2 & -1 \\ 0 & 0 & 0 \\ 1 & 2 & 1 \end{bmatrix}\right]
 $$
 
 The **Magnitude ($G$)** and **Direction ($\theta$)** are then computed:

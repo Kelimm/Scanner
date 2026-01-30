@@ -59,6 +59,14 @@ We use two thresholds, $T_{high}$ and $T_{low}$, to classify pixels:
 * **Weak edges**: $T_{low} \leq G < T_{high}$ (Keep only if connected to a strong edge)
 * **Suppressed**: $G < T_{low}$ (Discard)
 
+#### The Iterative Propagation Logic 🌊
+Instead of a simple single-pass check, our implementation uses an **iterative process** (using a `while` loop and `np.roll`) to ensure full connectivity. This ensures that long, continuous contours are not broken:
+
+1.  **Initial Seeds**: We start with the known Strong pixels.
+2.  **Neighbor Search**: We look at the 8-neighbors of all current Strong pixels simultaneously using vectorized shifts.
+3.  **Promotion**: Any Weak pixel touching a Strong pixel is "promoted" and becomes a new Strong pixel.
+4.  **Convergence**: The loop repeats this promotion until no more new pixels can be added to the edge chain.
+
 ---
 ## 🖼️ Example Results
 

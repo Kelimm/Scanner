@@ -9,7 +9,7 @@ while True:
         break
 
 
-    edges = cny.cannyEdge(0.08,frame)
+    edges = cny.cannyEdge(0.05,frame)
 
 
     cv2.namedWindow("Contours Canny", cv2.WINDOW_NORMAL)

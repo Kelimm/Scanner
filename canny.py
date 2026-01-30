@@ -39,17 +39,20 @@ def hysteresis(T, G_nms) :
     Tb = Th * 0.5
     pFort = G_nms >= Th
     pFaible = (G_nms >= Tb) & (G_nms <= Th)
-    pFort_droite = np.roll(pFort, 1, 1)
-    pFort_gauche = np.roll(pFort, -1, 1)
-    pFort_bas = np.roll(pFort, 1, 0)
-    pFort_haut = np.roll(pFort, -1, 0)
+    
+    ctn = True
 
-    pFort_diagDB = np.roll(pFort_droite, 1, 0)
-    pFort_diagDH = np.roll(pFort_droite, -1, 0)
-    pFort_diagpGB = np.roll(pFort_gauche, 1, 0)
-    pFort_diagpGH = np.roll(pFort_gauche, -1, 0)
+    while ctn :
+        pFort_droite = np.roll(pFort, 1, 1)
+        pFort_gauche = np.roll(pFort, -1, 1)
+        pFort_bas = np.roll(pFort, 1, 0)
+        pFort_haut = np.roll(pFort, -1, 0)
 
-    pFaible = pFaible & (pFort_bas  |
+        pFort_diagDB = np.roll(pFort_droite, 1, 0)
+        pFort_diagDH = np.roll(pFort_droite, -1, 0)
+        pFort_diagpGB = np.roll(pFort_gauche, 1, 0)
+        pFort_diagpGH = np.roll(pFort_gauche, -1, 0)
+        nv = pFaible & (pFort_bas  |
                       pFort_haut |
                       pFort_gauche |
                       pFort_droite |
@@ -57,14 +60,17 @@ def hysteresis(T, G_nms) :
                       pFort_diagDH |
                       pFort_diagpGB |
                       pFort_diagpGH)
-
-    masque = pFaible | pFort
-
-    return  G_nms * masque
+        if not nv.any() :
+            break
+        
+        pFort = pFort | nv
+        pFaible = ~nv & pFaible
+        
+    return  G_nms * pFort
 
 
 def cannyEdge(T, frame) :
-    # img_path = os.path.join(".","denji.jpg")
+    # img_path = os.path.join(".",frame)
     # img = cv2.imread(img_path)
     img = frame
 
@@ -129,13 +135,13 @@ def cannyEdge(T, frame) :
     cv2.namedWindow("img_floue", cv2.WINDOW_NORMAL)
     cv2.resizeWindow("img_floue", 756, 1008)
     cv2.imshow("img_floue", G)
-    cv2.imshow("img", cv2.Canny(img,150,50))
-
+    cv2.imshow("img", img)
+    
     cv2.waitKey(0)
     '''
     return G
 
 
 
-if __name__ == "__main__" :
-    cannyEdge()
+# if __name__ == "__main__" :
+#     cannyEdge(10,"exemple.jpg")
